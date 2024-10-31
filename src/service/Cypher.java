@@ -20,6 +20,7 @@ public class Cypher {
             if (j == 0) {
                 System.out.print(charFile);
             }
+
         }
         System.out.println();
     }
