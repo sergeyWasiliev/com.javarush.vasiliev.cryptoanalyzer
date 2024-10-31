@@ -18,6 +18,7 @@ public class Application {
             System.out.println(date.toString());
             System.out.println(ZonedDateTime.now());
             Thread.sleep(1000);
+
         }
     }
 }
