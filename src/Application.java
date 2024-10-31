@@ -1,3 +1,4 @@
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -15,6 +16,7 @@ public class Application {
 
             Date date = new Date();
             System.out.println(date.toString());
+            System.out.println(ZonedDateTime.now());
             Thread.sleep(1000);
         }
     }
