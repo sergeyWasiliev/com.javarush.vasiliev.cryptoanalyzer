@@ -12,6 +12,7 @@ import java.util.Scanner;
 // Статистический анализ
 // F:\JavaRushUniversity\Syntax level 1-26\ZonedDateTime.png
 // F:\JavaRushUniversity\Projects\Modul_1_cryptoanalyzer\Task.txt
+// F:\JavaRushUniversity\Projects\Modul_1_cryptoanalyzer\Test.txt
 
 public class Application {
 
