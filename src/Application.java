@@ -13,6 +13,7 @@ import java.util.Scanner;
 // F:\JavaRushUniversity\Syntax level 1-26\ZonedDateTime.png
 // F:\JavaRushUniversity\Projects\Modul_1_cryptoanalyzer\Task.txt
 // F:\JavaRushUniversity\Projects\Modul_1_cryptoanalyzer\Test.txt
+// F:\JavaRushUniversity\Syntax level 1-26\
 
 public class Application {
 
@@ -39,8 +40,8 @@ public class Application {
             int numMenu = scanner.nextInt();
             switch (numMenu) {
                 case 1 -> {
-                   Path path = pathFile.ValidPathFile(); //Возвращает путь к файлу
-                    readFiles.readfile(path); // Читаем файл
+                   Path path = pathFile.ValidPathReadFile(); //Валидация файла, если все ок возвращает путь к файлу
+                    readFiles.readfile(path); // Читаем файл построчно и обрабатываем (шифруем)
                     //cypher.encoder("");
                 }
                 case 2 -> decypher.decoder();

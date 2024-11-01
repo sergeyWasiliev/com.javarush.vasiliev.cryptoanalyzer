@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class PathFile {
     //Проверяем существует ли файл по введенному пути. Если да возвращаем его
-    public Path ValidPathFile() {
+    public Path ValidPathReadFile() {
         System.out.println("Введите путь к файлу");
         Scanner scanner = new Scanner(System.in);
         Path pathFile = Paths.get("");
