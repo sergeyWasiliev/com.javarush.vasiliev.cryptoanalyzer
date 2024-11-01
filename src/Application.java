@@ -3,6 +3,7 @@ import service.Cypher;
 import service.Decypher;
 
 import java.nio.file.Path;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -13,47 +14,62 @@ import java.util.Scanner;
 // F:\JavaRushUniversity\Syntax level 1-26\ZonedDateTime.png
 // F:\JavaRushUniversity\Projects\Modul_1_cryptoanalyzer\Task.txt
 // F:\JavaRushUniversity\Projects\Modul_1_cryptoanalyzer\Test.txt
+// F:\JavaRushUniversity\Projects\Modul_1_cryptoanalyzer\output.txt
 // F:\JavaRushUniversity\Syntax level 1-26\
 
 public class Application {
+    public static int numMenu;
 
-
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         Cypher cypher = new Cypher();
         Decypher decypher = new Decypher();
         BruteForceDecypher bruteForceDecypher = new BruteForceDecypher();
-        PathFile pathFile = new PathFile();
+        Validator validator = new Validator();
         ReadFiles readFiles = new ReadFiles();
 
-
         System.out.println("ШИФРОВАНИЕ МЕТОДОМ ЦЕЗАРЯ");
-        System.out.println("ВЫБЕРИТЕ ПУНКТ МЕНЮ");
         System.out.println("1. Шифрование с ключом");
         System.out.println("2. Расшифровка с ключом");
         System.out.println("3. Расшифровка brute force");
         System.out.println("0. ВЫХОД");
+        System.out.println("ВЫБЕРИТЕ ПУНКТ МЕНЮ");
+
         Scanner scanner = new Scanner(System.in);
-//        int exit = 1;
-//        while (exit!=0) {
-            int numMenu = scanner.nextInt();
-            switch (numMenu) {
-                case 1 -> {
-                   Path path = pathFile.ValidPathReadFile(); //Валидация файла, если все ок возвращает путь к файлу
-                    readFiles.readfile(path); // Читаем файл построчно и обрабатываем (шифруем)
-                    //cypher.encoder("");
-                }
-                case 2 -> decypher.decoder();
-                case 3 -> bruteForceDecypher.decoderBruteForce();
-                case 0 -> {
-//                    exit = 0;
-                    return;
-                }
+        boolean validnumMenu = false;
+        while (!validnumMenu) {
+
+            try {
+                numMenu = scanner.nextInt();
+                if (numMenu >= 0 && numMenu <= 3) {
+                    validnumMenu = true;
+                }else System.out.println("Выберите пункт меню. Введите целое число от 0 до 3");
+
+            } catch (InputMismatchException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Выберите пункт меню. Введите целое число от 0 до 3");
+                scanner.nextLine();
             }
-//        }
+        }
+        switch (numMenu) {
+            case 1 -> {
+                Path path = validator.ValidPathReadFile(); //Валидация файла, если все ок возвращает путь к файлу
+                int key = validator.validKey();
+                readFiles.readfile(path, key); // Читаем файл построчно и обрабатываем (шифруем)
+
+            }
+            case 2 -> {
+                Path path = validator.ValidPathReadFile(); //Валидация файла, если все ок возвращает путь к файлу
+                int key = validator.validKey();
+                readFiles.readfile(path, key); // Читаем файл построчно и обрабатываем (дешифруем)
+            }
+            case 3 -> bruteForceDecypher.decoderBruteForce();
+            case 0 -> {
+                System.out.println("Выход");
+                return;
+            }
+        }
     }
-
-
-
 }
+
+
