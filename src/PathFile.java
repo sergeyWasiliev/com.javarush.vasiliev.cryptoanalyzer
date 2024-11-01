@@ -17,7 +17,7 @@ public class PathFile {
                 if (Files.isRegularFile(pathFile)) {
                     validPath = true;
                 } else {
-                    System.out.println("Введите корректный путь к файлу");
+                    System.out.println("Это скорее всего не файл. Введите корректный путь к файлу");
                 }
 
             } catch (InvalidPathException e) {
@@ -25,6 +25,7 @@ public class PathFile {
                 System.out.println("Введите корректный путь к файлу");
             }
         }
+
 
 
 //        while (!Files.isRegularFile(pathFile)) {
