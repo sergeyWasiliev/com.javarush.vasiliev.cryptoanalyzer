@@ -69,7 +69,7 @@ public class Application {
                 int key = validator.validKey();
                 readFiles.readfile(pathRead, pathWrite, key); // Читаем файл построчно и обрабатываем (дешифруем)
             }
-            case 3 -> bruteForceDecypher.decoderBruteForce();
+            case 3 -> System.out.println();//bruteForceDecypher.decoderBruteForce();
             case 0 -> {
                 System.out.println("Выход");
                 return;

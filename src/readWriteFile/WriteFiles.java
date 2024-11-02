@@ -18,8 +18,12 @@ public class WriteFiles {
 
         try {
             // Запись в файл с использованием кодировки UTF-8
-            Files.write(filePath, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND, CREATE); // дозаписывает  файл, создает если нет
-            Files.write(filePath, "\n".getBytes(), StandardOpenOption.APPEND); //т.к. читаем по строкам добаляет возврат каретки после записанной строки
+//            Files.write(filePath, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND, CREATE); // дозаписывает  файл, создает если нет
+//            Files.write(filePath, "\n".getBytes(), StandardOpenOption.APPEND); //т.к. читаем по строкам добаляет возврат каретки после записанной строкFiles.write(filePath, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND, CREATE); // дозаписывает  файл, создает если нет
+
+            Files.writeString(filePath, content + System.lineSeparator(), StandardOpenOption.APPEND, CREATE); // дозаписывает  файл, создает если нет
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
