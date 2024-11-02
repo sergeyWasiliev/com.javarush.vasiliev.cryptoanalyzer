@@ -64,7 +64,6 @@ public class Application {
                 Path pathWrite = validator.ValidPathWriteFile(); //Валидация файла, возвращает путь для сохранения зашифрованногофайла
                 int key = validator.validKey();
                 readFiles.readfile(pathRead, pathWrite, key); // Читаем файл построчно и обрабатываем (шифруем)
-
             }
             case 2 -> {
                 Path pathRead = validator.ValidPathReadFile();
@@ -84,7 +83,9 @@ public class Application {
 
                 }
 
-
+                System.out.println("Готово!\n" +
+                                   "В папку " + parentFile.toString() + "\n" +
+                        "записаны файлы с результатами дешифровки.");
 
             }
             case 0 -> {
