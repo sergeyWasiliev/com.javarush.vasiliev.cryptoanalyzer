@@ -1,10 +1,7 @@
 package validator;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -47,7 +44,7 @@ public class Validator {
         Scanner scanner = new Scanner(System.in);
         int key = 0;
         boolean validKey = false;
-        while (validKey == false) {
+        while (!validKey) {
             try {
                 key = scanner.nextInt();
                 validKey = true;
@@ -87,5 +84,4 @@ public class Validator {
 
         return pathFileDecoder;
     }
-
 }

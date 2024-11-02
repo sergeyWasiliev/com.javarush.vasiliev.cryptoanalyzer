@@ -2,9 +2,7 @@ package service;
 
 public class BruteForceDecypher {
 
-    public char[] decoderBruteForce(String lineRead, int key)
-
-    {
+    public char[] decoderBruteForce(String lineRead, int key){
         //System.out.println("Идет шифрование с ключем");
         System.out.println(lineRead);
         int v = 0; //переключатель, если символ не нашелся в словаре пишем его без изменений
@@ -26,7 +24,6 @@ public class BruteForceDecypher {
                 System.out.print(readChar[i]);
                 decoderChar[i] = readChar[i]; //записываем символ без изменения, т.к. его нет в словаре
             }
-
         }
         System.out.println();
         return decoderChar;

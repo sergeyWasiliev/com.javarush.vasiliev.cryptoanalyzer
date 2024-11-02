@@ -24,7 +24,6 @@ public class Cypher {
                 System.out.print(readChar[i]);
                 encoderChar[i] = readChar[i]; //записываем символ без изменения, т.к. его нет в словаре
             }
-
         }
         System.out.println();
         return encoderChar;

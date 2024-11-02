@@ -1,6 +1,7 @@
 package app;
 
 import readWriteFile.ReadFiles;
+import readWriteFile.WriteFiles;
 import service.Alphavit;
 import service.BruteForceDecypher;
 import service.Cypher;
@@ -8,10 +9,13 @@ import service.Decypher;
 import validator.Validator;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 
 // Шифрование текста с ключем
@@ -34,6 +38,7 @@ public class Application {
         BruteForceDecypher bruteForceDecypher = new BruteForceDecypher();
         Validator validator = new Validator();
         ReadFiles readFiles = new ReadFiles();
+        WriteFiles writeFiles = new WriteFiles();
 
         System.out.println("ШИФРОВАНИЕ МЕТОДОМ ЦЕЗАРЯ");
         System.out.println("1. Шифрование с ключом");
@@ -58,40 +63,53 @@ public class Application {
                 scanner.nextLine();
             }
         }
-        switch (numMenu) {
-            case 1 -> {
-                Path pathRead = validator.ValidPathReadFile(); //Валидация файла, возвращает путь файла для шифрования
-                Path pathWrite = validator.ValidPathWriteFile(); //Валидация файла, возвращает путь для сохранения зашифрованногофайла
-                int key = validator.validKey();
-                readFiles.readfile(pathRead, pathWrite, key); // Читаем файл построчно и обрабатываем (шифруем)
-            }
-            case 2 -> {
-                Path pathRead = validator.ValidPathReadFile();
-                Path pathWrite = validator.ValidPathWriteFile();
-                int key = validator.validKey();
-                readFiles.readfile(pathRead, pathWrite, key); // Читаем файл построчно и обрабатываем (дешифруем)
-            }
-            case 3 -> {
-                Path pathRead = validator.ValidPathReadFile();
-                File parentFile = new File(String.valueOf(pathRead)).getParentFile(); //получили директорию без файла
-                for (int key = 1; key < Alphavit.ALPHABET.length; key++) {
 
-                    Path pathWrite = Paths.get(parentFile.toPath().resolve("outputDecoderkey" + key + ".txt").toUri()); // добалили имя файла к полученной ранее директории
-                    // Path pathWrite = validator.ValidPathWriteFile();
-                    // int key = validator.validKey();
-                    readFiles.readfile(pathRead, pathWrite, key); // Читаем файл построчно и обрабатываем (дешифруем)
-
+        try {
+            switch (numMenu) {
+                case 1 -> {
+                    Path pathRead = validator.ValidPathReadFile(); //Валидация файла, возвращает путь файла для шифрования
+                    Path pathWrite = validator.ValidPathWriteFile(); //Валидация файла, возвращает путь для сохранения зашифрованногофайла
+                    int key = validator.validKey();
+                    Stream<String> readFilesStream = readFiles.readfile(pathRead); // Читаем файл построчно и обрабатываем (шифруем)
+                    Iterator<String> lines = readFilesStream.iterator();
+                    String line;
+                    while (lines.hasNext()) { //читаем строки из потока с помощью итератора
+                        line = lines.next();
+                        char[] encoderChar = cypher.encoder(line, key); //передаем шифровальщику и получаем массив символов в зашифрованном виде
+                        writeFiles.writeFile(encoderChar, pathWrite); // передаем результат шифровальщика в метод для записи в файл. также передаем путь к файлу который шифровали
+                    }
                 }
-
-                System.out.println("Готово!\n" +
-                                   "В папку " + parentFile.toString() + "\n" +
-                        "записаны файлы с результатами дешифровки.");
-
+                case 2 -> {
+                    Path pathRead = validator.ValidPathReadFile();
+                    Path pathWrite = validator.ValidPathWriteFile();
+                    int key = validator.validKey();
+                    Stream<String> readFilesStream = readFiles.readfile(pathRead);
+                    Iterator<String> lines = readFilesStream.iterator();
+                    String line;
+                    while (lines.hasNext()) {
+                        line = lines.next();
+                        char[] decoderChar = decypher.decoder(line, key);
+                        writeFiles.writeFile(decoderChar, pathWrite);
+                    }
+                }
+                case 3 -> {
+                    Path pathRead = validator.ValidPathReadFile();
+                    File parentFile = new File(String.valueOf(pathRead)).getParentFile(); //получили директорию без файла
+                    for (int key = 1; key < Alphavit.ALPHABET.length; key++) {
+                        Path pathWrite = Paths.get(parentFile.toPath().resolve("outputDecoderkey" + key + ".txt").toUri()); // добалили имя файла к полученной ранее директории
+                        Stream<String> readFilesStream = readFiles.readfile(pathRead);
+                        Iterator<String> lines = readFilesStream.iterator();
+                        String line;
+                        while (lines.hasNext()) {
+                            line = lines.next();
+                            char[] decoderChar = decypher.decoder(line, key);
+                            writeFiles.writeFile(decoderChar, pathWrite);
+                        }
+                    }
+                }
             }
-            case 0 -> {
-                System.out.println("Выход");
-                return;
-            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
