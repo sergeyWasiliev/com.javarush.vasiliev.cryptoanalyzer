@@ -1,12 +1,15 @@
 package app;
 
 import readWriteFile.ReadFiles;
+import service.Alphavit;
 import service.BruteForceDecypher;
 import service.Cypher;
 import service.Decypher;
 import validator.Validator;
 
+import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -69,7 +72,21 @@ public class Application {
                 int key = validator.validKey();
                 readFiles.readfile(pathRead, pathWrite, key); // Читаем файл построчно и обрабатываем (дешифруем)
             }
-            case 3 -> System.out.println();//bruteForceDecypher.decoderBruteForce();
+            case 3 -> {
+                Path pathRead = validator.ValidPathReadFile();
+                File parentFile = new File(String.valueOf(pathRead)).getParentFile(); //получили директорию без файла
+                for (int key = 1; key < Alphavit.ALPHABET.length; key++) {
+
+                    Path pathWrite = Paths.get(parentFile.toPath().resolve("outputDecoderkey" + key + ".txt").toUri()); // добалили имя файла к полученной ранее директории
+                    // Path pathWrite = validator.ValidPathWriteFile();
+                    // int key = validator.validKey();
+                    readFiles.readfile(pathRead, pathWrite, key); // Читаем файл построчно и обрабатываем (дешифруем)
+
+                }
+
+
+
+            }
             case 0 -> {
                 System.out.println("Выход");
                 return;

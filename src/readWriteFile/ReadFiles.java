@@ -34,6 +34,11 @@ public class ReadFiles {
                 } else if (Application.numMenu == 2) {
                     char[] decoderChar = decypher.decoder(line, key);
                     writeF.writeFile(decoderChar, filePathDecoder);
+
+                    //Расшифровка brut forse -запись
+                } else if (Application.numMenu == 3) {
+                    char[] decoderChar = decypher.decoder(line, key);
+                    writeF.writeFile(decoderChar, filePathDecoder);
                 }
             }
         } catch (UncheckedIOException e) {
