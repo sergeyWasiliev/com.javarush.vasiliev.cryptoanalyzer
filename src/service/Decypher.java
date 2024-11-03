@@ -2,7 +2,6 @@ package service;
 
 public class Decypher {
     public char[] decoder(String lineRead, int key) {
-        //System.out.println("Идет шифрование с ключем");
         System.out.println(lineRead);
         int v = 0; //переключатель, если символ не нашелся в словаре пишем его без изменений
         int lengthALPH = Alphavit.ALPHABET.length;
@@ -13,7 +12,7 @@ public class Decypher {
             v = 0;
             for (int j = 0; j < lengthALPH; j++) {
                 if (readChar[i] == Alphavit.ALPHABET[j]) {
-                    int index = (j + lengthALPH - key) % lengthALPH; // Используем остаток от деления для получения индекса
+                    int index = (j - (key % lengthALPH) + lengthALPH) % lengthALPH; // Используем остаток от деления для получения индекса
                     System.out.print(Alphavit.ALPHABET[index]);
                     decoderChar[i] = Alphavit.ALPHABET[index]; //записываем символ со смещением
                     v = 1;

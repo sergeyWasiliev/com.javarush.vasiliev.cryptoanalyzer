@@ -8,7 +8,11 @@ import java.util.stream.Stream;
 
 public class ReadFiles {
     //Читает файл в Stream
-    public Stream<String> readfile(Path filePath) throws IOException {
-        return Files.lines(filePath, StandardCharsets.UTF_8);
+    public Stream<String> readfile(Path filePath) {
+        try {
+            return Files.lines(filePath, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

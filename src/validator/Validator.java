@@ -9,7 +9,6 @@ public class Validator {
     //Проверяем существует ли файл по введенному пути. Если да возвращаем его
     // Обработка InvalidPathException
     public Path ValidPathReadFile() {
-        System.out.println("Введите путь к файлу для шифрования");
         Scanner scanner = new Scanner(System.in);
         Path pathFileEncoder = Paths.get("");
         boolean validPath = false;
@@ -18,21 +17,18 @@ public class Validator {
                 pathFileEncoder = Paths.get(scanner.nextLine());
                 //Проверка на непустой файл
                 File file = new File(String.valueOf(pathFileEncoder));
-                if (file.exists()) {
-                    if (file.length() == 0) {
-                        System.out.println("Выбранный файл пустой!");
-                    }
-                }
 
-                if (Files.exists(pathFileEncoder) && file.length() != 0) {
+                if (Files.isRegularFile(pathFileEncoder) && file.length() != 0) {
                     validPath = true;
+                } else if (Files.isRegularFile(pathFileEncoder) && file.length() == 0) {
+                    System.out.println("Выбранный файл пустой!");
                 } else {
-                    System.out.println("Введите корректный путь к файлу");
+                    System.out.println("Введите корректный путь к файлу *.txt");
                 }
 
             } catch (InvalidPathException e) {
                 System.out.println(e.getMessage());
-                System.out.println("Введите корректный путь к файлу");
+                System.out.println("Введите корректный путь к файлу *.txt");
             }
         }
 
@@ -54,7 +50,6 @@ public class Validator {
                 scanner.nextLine();
             }
         }
-
         return key;
     }
 
@@ -62,7 +57,6 @@ public class Validator {
     //Заправшиваем путь куда сохранить зашифрованный файл
     // Обработка InvalidPathException
     public Path ValidPathWriteFile() {
-        System.out.println("Введите путь для сохранения зашифрованного файла");
         Scanner scanner = new Scanner(System.in);
         Path pathFileDecoder = Paths.get("");
         boolean validPath = false;

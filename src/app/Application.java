@@ -64,12 +64,15 @@ public class Application {
             }
         }
 
-        try {
+//        try {
             switch (numMenu) {
                 case 1 -> {
+                    System.out.println("Введите путь к файлу для шифрования");
                     Path pathRead = validator.ValidPathReadFile(); //Валидация файла, возвращает путь файла для шифрования
+                    System.out.println("Введите путь для сохранения зашифрованного файла");
                     Path pathWrite = validator.ValidPathWriteFile(); //Валидация файла, возвращает путь для сохранения зашифрованногофайла
                     int key = validator.validKey();
+                    System.out.println("Идет процесс шифрования файла c ключем: " + key);
                     Stream<String> readFilesStream = readFiles.readfile(pathRead); // Читаем файл построчно и обрабатываем (шифруем)
                     Iterator<String> lines = readFilesStream.iterator();
                     String line;
@@ -78,11 +81,15 @@ public class Application {
                         char[] encoderChar = cypher.encoder(line, key); //передаем шифровальщику и получаем массив символов в зашифрованном виде
                         writeFiles.writeFile(encoderChar, pathWrite); // передаем результат шифровальщика в метод для записи в файл. также передаем путь к файлу который шифровали
                     }
+                    System.out.println("Шифрование завершено!!!");
                 }
                 case 2 -> {
+                    System.out.println("Введите путь к файлу для дешифровки");
                     Path pathRead = validator.ValidPathReadFile();
+                    System.out.println("Введите путь для сохранения дешифрованного файла");
                     Path pathWrite = validator.ValidPathWriteFile();
                     int key = validator.validKey();
+                    System.out.println("Идет процесс расшифровки файла...");
                     Stream<String> readFilesStream = readFiles.readfile(pathRead);
                     Iterator<String> lines = readFilesStream.iterator();
                     String line;
@@ -91,9 +98,12 @@ public class Application {
                         char[] decoderChar = decypher.decoder(line, key);
                         writeFiles.writeFile(decoderChar, pathWrite);
                     }
+                    System.out.println("Расшифровка завершена!!!");
                 }
                 case 3 -> {
+                    System.out.println("Введите путь к файлу для дешифровки");
                     Path pathRead = validator.ValidPathReadFile();
+                    System.out.println("Идет процесс расшифровки Brute Force");
                     File parentFile = new File(String.valueOf(pathRead)).getParentFile(); //получили директорию без файла
                     for (int key = 1; key < Alphavit.ALPHABET.length; key++) {
                         Path pathWrite = Paths.get(parentFile.toPath().resolve("outputDecoderkey" + key + ".txt").toUri()); // добалили имя файла к полученной ранее директории
@@ -106,11 +116,12 @@ public class Application {
                             writeFiles.writeFile(decoderChar, pathWrite);
                         }
                     }
+                    System.out.println("Расшифровка завершена!\nРезультаты работы дешифровщика находятся в той же папке что и зашифрованный файл");
                 }
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        } catch (RuntimeException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 }
 

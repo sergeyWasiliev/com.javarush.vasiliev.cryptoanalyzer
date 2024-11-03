@@ -1,20 +1,21 @@
 package service;
 
 public class Cypher {
-
     public char[] encoder(String lineRead, int key) {
-        //System.out.println("Идет шифрование с ключем");
         System.out.println(lineRead);
         int v = 0; //переключатель, если символ не нашелся в словаре пишем его без изменений
         int lengthALPH = Alphavit.ALPHABET.length;
         char[] readChar = lineRead.toCharArray(); //Массив char из переданной строки
         char[] encoderChar = new char[readChar.length]; //Массив char зашифрованной строки
-
-        for (int i = 0; i < readChar.length; i++) {
-             v = 0;
-            for (int j = 0; j < lengthALPH; j++) {
+//
+//        System.out.print(key % lengthALPH);
+//                + lengthALPH) % lengthALPH
+//
+        for (int i = 0; i < readChar.length; i++) { //Цикл по строке из файла
+            v = 0;
+            for (int j = 0; j < lengthALPH; j++) { //Цикл по алфавиту
                 if (readChar[i] == Alphavit.ALPHABET[j]) {
-                    int index = (j + key) % lengthALPH; // Используем остаток от деления для получения индекса
+                    int index = (j + (key % lengthALPH) + lengthALPH) % lengthALPH; // Используем остаток от деления для получения индекса
                     System.out.print(Alphavit.ALPHABET[index]);
                     encoderChar[i] = Alphavit.ALPHABET[index]; //записываем символ со смещением
                     v = 1;
