@@ -1,5 +1,7 @@
 package service;
 
+import app.Application;
+
 public class Cypher {
     public char[] encoder(String lineRead, int key) {
         System.out.println(lineRead);
@@ -7,10 +9,12 @@ public class Cypher {
         int lengthALPH = Alphavit.ALPHABET.length;
         char[] readChar = lineRead.toCharArray(); //Массив char из переданной строки
         char[] encoderChar = new char[readChar.length]; //Массив char зашифрованной строки
-//
-//        System.out.print(key % lengthALPH);
-//                + lengthALPH) % lengthALPH
-//
+
+        if (Application.numMenu >= 2 ) {
+            key = -1 * key;
+        }
+
+
         for (int i = 0; i < readChar.length; i++) { //Цикл по строке из файла
             v = 0;
             for (int j = 0; j < lengthALPH; j++) { //Цикл по алфавиту

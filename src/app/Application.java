@@ -3,13 +3,12 @@ package app;
 import readWriteFile.ReadFiles;
 import readWriteFile.WriteFiles;
 import service.Alphavit;
-import service.BruteForceDecypher;
 import service.Cypher;
-import service.Decypher;
+//import zOldClass.BruteForceDecypher;
+//import zOldClass.Decypher;
 import validator.Validator;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
@@ -17,25 +16,14 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
-
-// Шифрование текста с ключем
-// Расшифровка текста с ключем
-// Расшифровка методом brute force
-// Статистический анализ
-// F:\JavaRushUniversity\Syntax level 1-26\ZonedDateTime.png
-// F:\JavaRushUniversity\Projects\Modul_1_cryptoanalyzer\Task.txt
-// F:\JavaRushUniversity\Projects\Modul_1_cryptoanalyzer\Test.txt
-// F:\JavaRushUniversity\Projects\Modul_1_cryptoanalyzer\output.txt
-// F:\JavaRushUniversity\Syntax level 1-26\
-
 public class Application {
     public static int numMenu;
 
     public static void main(String[] args) {
 
         Cypher cypher = new Cypher();
-        Decypher decypher = new Decypher();
-        BruteForceDecypher bruteForceDecypher = new BruteForceDecypher();
+//        Decypher decypher = new Decypher();
+//        BruteForceDecypher bruteForceDecypher = new BruteForceDecypher();
         Validator validator = new Validator();
         ReadFiles readFiles = new ReadFiles();
         WriteFiles writeFiles = new WriteFiles();
@@ -63,8 +51,6 @@ public class Application {
                 scanner.nextLine();
             }
         }
-
-//        try {
             switch (numMenu) {
                 case 1 -> {
                     System.out.println("Введите путь к файлу для шифрования");
@@ -95,7 +81,8 @@ public class Application {
                     String line;
                     while (lines.hasNext()) {
                         line = lines.next();
-                        char[] decoderChar = decypher.decoder(line, key);
+                       // char[] decoderChar = decypher.decoder(line, key);
+                        char[] decoderChar = cypher.encoder(line, key);
                         writeFiles.writeFile(decoderChar, pathWrite);
                     }
                     System.out.println("Расшифровка завершена!!!");
@@ -112,16 +99,14 @@ public class Application {
                         String line;
                         while (lines.hasNext()) {
                             line = lines.next();
-                            char[] decoderChar = decypher.decoder(line, key);
+                            // char[] decoderChar = decypher.decoder(line, key);
+                            char[] decoderChar = cypher.encoder(line, key);
                             writeFiles.writeFile(decoderChar, pathWrite);
                         }
                     }
                     System.out.println("Расшифровка завершена!\nРезультаты работы дешифровщика находятся в той же папке что и зашифрованный файл");
                 }
             }
-//        } catch (RuntimeException e) {
-//            System.out.println(e.getMessage());
-//        }
     }
 }
 

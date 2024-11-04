@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Validator {
     //Проверяем существует ли файл по введенному пути. Если да возвращаем его
-    // Обработка InvalidPathException
     public Path ValidPathReadFile() {
         Scanner scanner = new Scanner(System.in);
         Path pathFileEncoder = Paths.get("");
@@ -35,6 +34,7 @@ public class Validator {
         return pathFileEncoder;
     }
 
+    //Проверяем что ввели целое число
     public int validKey() {
         System.out.println("Введите ключ");
         Scanner scanner = new Scanner(System.in);
@@ -55,7 +55,6 @@ public class Validator {
 
 
     //Заправшиваем путь куда сохранить зашифрованный файл
-    // Обработка InvalidPathException
     public Path ValidPathWriteFile() {
         Scanner scanner = new Scanner(System.in);
         Path pathFileDecoder = Paths.get("");
