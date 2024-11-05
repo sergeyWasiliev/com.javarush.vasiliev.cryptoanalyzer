@@ -3,7 +3,7 @@ package app;
 import readWriteFile.ReadFiles;
 import readWriteFile.WriteFiles;
 import service.Alphavit;
-import service.Cypher;
+import service.CypherDecypher;
 //import zOldClass.BruteForceDecypher;
 //import zOldClass.Decypher;
 import validator.Validator;
@@ -21,7 +21,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-        Cypher cypher = new Cypher();
+        CypherDecypher cypher = new CypherDecypher();
 //        Decypher decypher = new Decypher();
 //        BruteForceDecypher bruteForceDecypher = new BruteForceDecypher();
         Validator validator = new Validator();
@@ -90,10 +90,18 @@ public class Application {
                 case 3 -> {
                     System.out.println("Введите путь к файлу для дешифровки");
                     Path pathRead = validator.ValidPathReadFile();
+                    System.out.println("Введите путь для сохранения дешифрованного файла в формате *.txt");
+                    Path pathWrite1 = validator.ValidPathWriteFile();
                     System.out.println("Идет процесс расшифровки Brute Force");
-                    File parentFile = new File(String.valueOf(pathRead)).getParentFile(); //получили директорию без файла
+                    System.out.println("В результате дешифровки по указанному пути будут созданы файлы *1.txt, *2.txt ...");
+                    File parentFileDir = new File(String.valueOf(pathWrite1)).getParentFile(); //получили директорию без файла
+                    String fileName = new File(String.valueOf(pathWrite1)).getName(); //получили имя файла файла
+
+
                     for (int key = 1; key < Alphavit.ALPHABET.length; key++) {
-                        Path pathWrite = Paths.get(parentFile.toPath().resolve("outputDecoderkey" + key + ".txt").toUri()); // добалили имя файла к полученной ранее директории
+                       // Path pathWrite = Paths.get(parentFileDir.toPath().resolve(fileName.substring(0, fileName.lastIndexOf('.')) + key + ".txt").toUri()); // добалили имя файла к полученной ранее директории
+                        Path pathWrite = Paths.get(parentFileDir.toPath().resolve(fileName.substring(0, fileName.lastIndexOf('.')) + key + ".txt").toUri()); // добалили имя файла к полученной ранее директории
+                        //System.out.println(pathWrite);
                         Stream<String> readFilesStream = readFiles.readfile(pathRead);
                         Iterator<String> lines = readFilesStream.iterator();
                         String line;
@@ -104,7 +112,7 @@ public class Application {
                             writeFiles.writeFile(decoderChar, pathWrite);
                         }
                     }
-                    System.out.println("Расшифровка завершена!\nРезультаты работы дешифровщика находятся в той же папке что и зашифрованный файл");
+                    System.out.println("Расшифровка завершена!");
                 }
             }
     }

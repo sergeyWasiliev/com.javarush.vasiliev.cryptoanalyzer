@@ -14,7 +14,7 @@ public class Validator {
         while (validPath == false) {
             try {
                 pathFileEncoder = Paths.get(scanner.nextLine());
-                //Проверка на непустой файл
+                //Проверка на пустой файл
                 File file = new File(String.valueOf(pathFileEncoder));
 
                 if (Files.isRegularFile(pathFileEncoder) && file.length() != 0) {
@@ -30,7 +30,6 @@ public class Validator {
                 System.out.println("Введите корректный путь к файлу *.txt");
             }
         }
-
         return pathFileEncoder;
     }
 
