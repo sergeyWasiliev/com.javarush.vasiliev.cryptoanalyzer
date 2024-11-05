@@ -41,6 +41,7 @@ public class Validator {
         while (!validKey) {
             try {
                 key = scanner.nextInt();
+                System.out.println(key);
                 validKey = true;
             } catch (InputMismatchException e) {
                 System.out.println(e.getMessage());
@@ -59,8 +60,9 @@ public class Validator {
         while (validPath == false) {
             try {
                 pathFileDecoder = Paths.get(scanner.nextLine());
+                if (pathFileDecoder.toString().equals("")) throw new NullPointerException();
                 validPath = true;
-            } catch (InvalidPathException e) {
+            } catch (NullPointerException | InvalidPathException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Введите корректный путь к файлу");
             }
