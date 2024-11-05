@@ -24,7 +24,6 @@ public class Validator {
                 } else {
                     System.out.println("Введите корректный путь к файлу *.txt");
                 }
-
             } catch (InvalidPathException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Введите корректный путь к файлу *.txt");
@@ -52,8 +51,7 @@ public class Validator {
         return key;
     }
 
-
-    //Заправшиваем путь куда сохранить зашифрованный файл
+    //Запрашивает путь сохранения зашифрованного файла и возвращает его
     public Path ValidPathWriteFile() {
         Scanner scanner = new Scanner(System.in);
         Path pathFileDecoder = Paths.get("");
@@ -62,18 +60,11 @@ public class Validator {
             try {
                 pathFileDecoder = Paths.get(scanner.nextLine());
                 validPath = true;
-//                if (Files.isRegularFile(pathFileDecoder)) {
-//                    validPath = true;
-//                } else {
-//                    System.out.println("Это скорее всего не путь к файлу. Введите корректный путь к файлу");
-//                }
-
             } catch (InvalidPathException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Введите корректный путь к файлу");
             }
         }
-
         return pathFileDecoder;
     }
 }

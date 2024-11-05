@@ -15,11 +15,8 @@ public class WriteFiles {
             //e.printStackTrace();
             System.out.println(e.getMessage());
             throw new RuntimeException("Не удалось создать зашифрованный файл по указанному пути");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }
-

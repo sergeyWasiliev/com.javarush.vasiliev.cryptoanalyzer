@@ -1,4 +1,4 @@
-package service;
+package resources;
 
 public class Alphavit {
     public static final char[] ALPHABET = {'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з',
