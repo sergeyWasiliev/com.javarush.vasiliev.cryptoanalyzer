@@ -64,7 +64,7 @@ public class Application {
                     String line;
                     while (lines.hasNext()) { //читаем строки из потока с помощью итератора
                         line = lines.next();
-                        char[] encoderChar = cypher.encoder(line, key); //передаем шифровальщику и получаем массив символов в зашифрованном виде
+                        char[] encoderChar = cypher.encryptDecrypt(line, key); //передаем шифровальщику строку и получаем массив символов в зашифрованном виде
                         writeFiles.writeFile(encoderChar, pathWrite); // передаем результат шифровальщика в метод для записи в файл. также передаем путь к файлу который шифровали
                     }
                     System.out.println("Шифрование завершено!!!");
@@ -82,7 +82,7 @@ public class Application {
                     while (lines.hasNext()) {
                         line = lines.next();
                        // char[] decoderChar = decypher.decoder(line, key);
-                        char[] decoderChar = cypher.encoder(line, key);
+                        char[] decoderChar = cypher.encryptDecrypt(line, key);
                         writeFiles.writeFile(decoderChar, pathWrite);
                     }
                     System.out.println("Расшифровка завершена!!!");
@@ -100,7 +100,7 @@ public class Application {
                         while (lines.hasNext()) {
                             line = lines.next();
                             // char[] decoderChar = decypher.decoder(line, key);
-                            char[] decoderChar = cypher.encoder(line, key);
+                            char[] decoderChar = cypher.encryptDecrypt(line, key);
                             writeFiles.writeFile(decoderChar, pathWrite);
                         }
                     }

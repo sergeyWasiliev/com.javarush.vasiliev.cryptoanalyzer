@@ -3,7 +3,7 @@ package service;
 import app.Application;
 
 public class Cypher {
-    public char[] encoder(String lineRead, int key) {
+    public char[] encryptDecrypt(String lineRead, int key) {
         System.out.println(lineRead);
         int v = 0; //переключатель, если символ не нашелся в словаре пишем его без изменений
         int lengthALPH = Alphavit.ALPHABET.length;
@@ -14,12 +14,13 @@ public class Cypher {
             key = -1 * key;
         }
 
-
         for (int i = 0; i < readChar.length; i++) { //Цикл по строке из файла
             v = 0;
             for (int j = 0; j < lengthALPH; j++) { //Цикл по алфавиту
                 if (readChar[i] == Alphavit.ALPHABET[j]) {
-                    int index = (j + (key % lengthALPH) + lengthALPH) % lengthALPH; // Используем остаток от деления для получения индекса
+                    // % lengthALPH - получаем значение индекса от 0 до lengthALPH исключая полные обороты
+                    // + lengthALPH - исключаем отрицательные значения index
+                    int index = (j + (key % lengthALPH) + lengthALPH) % lengthALPH;
                     System.out.print(Alphavit.ALPHABET[index]);
                     encoderChar[i] = Alphavit.ALPHABET[index]; //записываем символ со смещением
                     v = 1;
