@@ -1,12 +1,14 @@
 package validator;
 
+import resources.Alphavit;
+
 import java.io.File;
 import java.nio.file.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Validator {
-    //Проверяем существует ли файл по введенному пути. Если да возвращаем его
+    //Проверяем существует ли файл по введенному пути
     public Path ValidPathReadFile() {
         Scanner scanner = new Scanner(System.in);
         Path pathFileEncoder = Paths.get("");
@@ -20,7 +22,7 @@ public class Validator {
                 if (Files.isRegularFile(pathFileEncoder) && file.length() != 0) {
                     validPath = true;
                 } else if (Files.isRegularFile(pathFileEncoder) && file.length() == 0) {
-                    System.out.println("Выбранный файл пустой!");
+                    System.out.println("Выбетире непустой файл!");
                 } else {
                     System.out.println("Введите корректный путь к файлу *.txt");
                 }
@@ -33,8 +35,8 @@ public class Validator {
     }
 
     //Проверяем что ввели целое число
-    public int validKey() {
-        System.out.println("Введите ключ");
+    public int validKey(String message) {
+        System.out.println(message);
         Scanner scanner = new Scanner(System.in);
         int key = 0;
         boolean validKey = false;
@@ -52,7 +54,7 @@ public class Validator {
         return key;
     }
 
-    //Запрашивает путь сохранения зашифрованного файла и возвращает его
+    //Проверяем путь сохранения зашифрованного файла на NullPointerException | InvalidPathException
     public Path ValidPathWriteFile() {
         Scanner scanner = new Scanner(System.in);
         Path pathFileDecoder = Paths.get("");

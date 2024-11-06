@@ -5,6 +5,7 @@ import readWriteFile.WriteFiles;
 import resources.Alphavit;
 import service.CypherDecypher;
 import validator.Validator;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,7 +51,10 @@ public class Application {
                 Path pathRead = validator.ValidPathReadFile(); //Валидация файла, возвращает путь файла для шифрования
                 System.out.println("Введите путь для сохранения зашифрованного файла");
                 Path pathWrite = validator.ValidPathWriteFile(); //Валидация файла, возвращает путь для сохранения зашифрованногофайла
-                int key = validator.validKey();
+                String message = "Введите ключ, любое целое число от -2147483647 до 2147483647\n" +
+                        "Логический смысл имеют ключи значениями от 0 до длины используемого алфавита\n" +
+                        "В нашем случае от 0 до " + Alphavit.ALPHABET.length;
+                int key = validator.validKey(message);
                 System.out.println("Идет процесс шифрования файла c ключем: " + key);
                 Stream<String> readFilesStream = readFiles.readfile(pathRead); // Читаем файл построчно и обрабатываем (шифруем)
                 Iterator<String> lines = readFilesStream.iterator();
@@ -67,7 +71,8 @@ public class Application {
                 Path pathRead = validator.ValidPathReadFile();
                 System.out.println("Введите путь для сохранения дешифрованного файла");
                 Path pathWrite = validator.ValidPathWriteFile();
-                int key = validator.validKey();
+                String message = "Введите ключ для расшифровки файла";
+                int key = validator.validKey(message);
                 System.out.println("Идет процесс расшифровки файла...");
                 Stream<String> readFilesStream = readFiles.readfile(pathRead);
                 Iterator<String> lines = readFilesStream.iterator();
