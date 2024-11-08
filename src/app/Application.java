@@ -56,7 +56,7 @@ public class Application {
                         "В нашем случае от 0 до " + Alphavit.ALPHABET.length;
                 int key = validator.validKey(message);
                 System.out.println("Идет процесс шифрования файла c ключем: " + key);
-                Stream<String> readFilesStream = readFiles.readfile(pathRead); // Читаем файл построчно и обрабатываем (шифруем)
+                Stream<String> readFilesStream = readFiles.readfile(pathRead); // Создаем дженерализованный поток
                 Iterator<String> lines = readFilesStream.iterator();
                 String line;
                 while (lines.hasNext()) { //читаем строки из потока с помощью итератора
@@ -64,7 +64,7 @@ public class Application {
                     char[] encoderChar = cypher.encryptDecrypt(line, key); //передаем шифровальщику строку и получаем массив символов в зашифрованном виде
                     writeFiles.writeFile(encoderChar, pathWrite); // передаем результат шифровальщика в метод для записи в файл. также передаем путь к файлу который шифровали
                 }
-                System.out.println("Шифрование завершено!!!");
+                System.out.println("Шифрование завершено!");
             }
             case 2 -> {
                 System.out.println("Введите путь к файлу для дешифровки");
@@ -82,7 +82,7 @@ public class Application {
                     char[] decoderChar = cypher.encryptDecrypt(line, key);
                     writeFiles.writeFile(decoderChar, pathWrite);
                 }
-                System.out.println("Расшифровка завершена!!!");
+                System.out.println("Расшифровка завершена!");
             }
             case 3 -> {
                 System.out.println("Введите путь к файлу для дешифровки");
@@ -92,7 +92,7 @@ public class Application {
                 System.out.println("Идет процесс расшифровки Brute Force");
                 System.out.println("В результате дешифровки по указанному пути будут созданы файлы *1.txt, *2.txt ...");
                 File parentFileDir = new File(String.valueOf(pathWrite1)).getParentFile(); //получили директорию без файла
-                String fileName = new File(String.valueOf(pathWrite1)).getName(); //получили имя файла файла
+                String fileName = new File(String.valueOf(pathWrite1)).getName(); //получили имя файла
 
                 for (int key = 1; key < Alphavit.ALPHABET.length; key++) {
                     Path pathWrite = Paths.get(parentFileDir.toPath().resolve(fileName.substring(0, fileName.lastIndexOf('.')) + key + ".txt").toUri());// добалили значение key в конец имени файла переданного пользователем для сохранения результатов
